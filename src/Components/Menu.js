@@ -188,7 +188,7 @@ class MenuFile extends React.Component{
         //Flag for DeleteCount
         var DeleteCount = 0
                {
-            DeleteCount = this.state.msgCount===0?this.state.msgCount:this.state.msgCount-this.state.data.length
+            DeleteCount = 4-this.state.data.length //4 is fix length of Array
         }
         //Count for inbox
         var msgCount = 0
