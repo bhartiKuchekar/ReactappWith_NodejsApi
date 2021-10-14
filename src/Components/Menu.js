@@ -8,92 +8,74 @@ import { MenuComponent } from '@syncfusion/ej2-react-navigations';
 import './index.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 class MenuFile extends React.Component{
-	constructor() {
+    constructor() {
         super(...arguments);
         this.mediaQuery = '(min-width: 600px)';
             this.state={
             filtered:[],
             searchStatus:0,
             flagCount:0,
+            spamCount:0,
+            DeleteCount:0,
+            msgCount:0,
+            menuItemsForOtherShops:[],
             data:[
                 {
-               "message": "Need more information about documents1",
-               "deleteFlag": true,
+               "message": "Lorem Ipsum is probably the most popular dummy text generator out there",
+               "deleteFlag": false,
                "markAsReadFlag": true,
                "FlagVisible": true,
                "isRead":false,
                "isFlagClick":false,
-               "importantflag": true,
+               "spamFlag": false,
                "noofmessage": "1",
                "contactNo": "0987654321",
-               "date":"14/10/21"
+               "date":"11/10/21"
              },{
-               "message": "Need more information about documents2",
-               "deleteFlag": true,
+               "message": "This dummy text generator can provide you with filler text in ten languages",
+               "deleteFlag": false,
                "markAsReadFlag": true,
                "FlagVisible": true,
                "isRead":false,
                "isFlagClick":false,
-               "importantflag": true,
+               "spamFlag": false,
                "noofmessage": "1",
-               "contactNo": "0987654321",
-               "date":"14/10/21"
+               "contactNo": "0887654637",
+               "date":"12/10/21"
              },{
-               "message": "Need more information about documents4",
-               "deleteFlag": true,
+               "message": "Cameron Creative Filler Text",
+               "deleteFlag": false,
                "markAsReadFlag": true,
                "FlagVisible": true,
                "isRead":false,
                "isFlagClick":false,
-               "importantflag": true,
+               "spamFlag": false,
                "noofmessage": "1",
-               "contactNo": "0987654321",
-               "date":"14/10/21"
+               "contactNo": "0765478321",
+               "date":"13/10/21"
              },{
-               "message": "Need more information about documents5",
-               "deleteFlag": true,
+               "message": "What purpose does dummy text have",
+               "deleteFlag": false,
                "markAsReadFlag": true,
                "FlagVisible": true,
                "isRead":false,
                "isFlagClick":false,
-               "importantflag": true,
+               "spamFlag": false,
                "noofmessage": "1",
-               "contactNo": "0987654321",
+               "contactNo": "0967854679",
                "date":"14/10/21"
              }
             ],
         }
-         this.menuItemsForOtherShops = [
-             {
-                text: 'Inbox',
-                iconCss: 'icon-picture icon',
-                url: "/Inbox#/MenuFile"
-            },
-          
-            {
-                text: 'Flagged',
-                iconCss: 'icon-picture icon',
-                url: "/Flag#/MenuFile"
-
-            },
-            {
-                text: 'Spam',
-                iconCss: 'icon-picture icon',
-                url: "/Spam#/MenuFile"
-            },
-            {
-                text: 'Deleted',
-                iconCss: 'icon-picture icon',
-                url: "/Delete#/MenuFile"
-               }
-            ];
+         
+        
 
         this.enableDock = true;
         this.dockSize = '52px';
         this.width = '220px';
         this.target = '.main-content';
-	}
-
+    }
+//Function for handling Search operation
     handleChange(e){
         var userInput = document.getElementsByName('searchInput')[0].value;
         var count=0;
@@ -113,7 +95,7 @@ class MenuFile extends React.Component{
                "deleteFlag": val.deleteFlag,
                "markAsReadFlag": val.markAsReadFlag,
                "FlagVisible":val.FlagVisible ,
-               "importantflag": val.importantflag,
+               "spamFlag": val.spamFlag,
                "noofmessage": val.noofmessage,
                "contactNo": val.contactNo,
                "date":val.date,
@@ -133,27 +115,53 @@ class MenuFile extends React.Component{
          })
          }
       }
-      handleChangeFlag(index){
+
+      handleChangeIsRead(index){
         let temp = this.state.data
-        temp[index].isFlagClick=true
+        temp[index].isRead = true
         this.setState({
             data:temp
         })
+        this.componentDidMount()
+        }
+      //Function for onlcicked on Span Icon
+      handleFlagSpam(index){
+        let temp = this.state.data
+        let value =temp[index].spamFlag===true?false:true
+        temp[index].spamFlag = value
+        this.setState({
+            data:temp
+        })
+        this.componentDidMount()
+      }
+      //Fuction for when Clicked on Flag Icon
+      handleChangeFlag(index){
+        let temp = this.state.data
+        let value = temp[index].isFlagClick===true?false:true
+        temp[index].isFlagClick = value
+        this.setState({
+            data:temp
+        })
+        this.componentDidMount()
             }
+    //Fuction for when Clicked on Delete
       handleChangeDelete(index){
         let temp = this.state.data
         temp.splice(index, 1);
         this.setState({
             data:temp,
         })
+        this.componentDidMount()
       }
+      //Fuction for when mouseOver
       showIconEnter(index){
         var temp = this.state.searchStatus===0?this.state.data:this.state.filtered
         temp[index].FlagVisible = false
         this.setState({
           dataTemp:temp
         })
-       }
+       } 
+       //Fuction for when remove mouseOver 
        showIconLeave(index){
         var temp = this.state.searchStatus===0?this.state.data:this.state.filtered
         temp[index].FlagVisible = true
@@ -163,26 +171,83 @@ class MenuFile extends React.Component{
        }
        componentDidMount() {   
         var temp= this.state.data
+        //Flag for flagCount
         var flagCount = 0
         for(var i=0;i<temp.length;i++){
         if(temp[i].isFlagClick){
-            flagCount++
+            flagCount = flagCount+1
         }
         }
-        this.setState({
-        flagCount:flagCount
-      })
+        //Flag for SpamCount
+        var spamCount = 0
+        for(var i=0;i<temp.length;i++){
+        if(temp[i].spamFlag){
+            spamCount= spamCount+1
+        }
+        }
+        //Flag for DeleteCount
+        var DeleteCount = 0
+               {
+            DeleteCount = this.state.msgCount===0?this.state.msgCount:this.state.msgCount-this.state.data.length
+        }
+        //Count for inbox
+        var msgCount = 0
+        for(var i=0;i<temp.length;i++){
+            if(temp[i].isRead===false){
+                msgCount = msgCount+1
+            }
+            }
+     
+            var inboxName = "Inbox   "+msgCount;
+            var flaggedName = "Flagged   "+flagCount
+            var spamName = "Spam   "+spamCount
+            var deleteName = "Deleted   "+DeleteCount
+    
+            var temp = [] 
+            temp.push( {
+                text: inboxName,
+                iconCss: 'icon-picture icon',
+                url: "/AddShop#/MenuFile"
+            },
+          
+            {
+                text: flaggedName,
+                iconCss: 'icon-picture icon',
+                url: "/ShopList#/MenuFile"
+    
+            },
+            {
+                text: spamName,
+                iconCss: 'icon-picture icon',
+                url: "/AddShop#/MenuFile"
+            },
+            {
+                text: deleteName,
+                iconCss: 'icon-picture icon',
+                url: "/AddShop#/MenuFile"
+            })
+                this.setState({
+                    menuItemsForOtherShops:temp,
+                    DeleteCount:DeleteCount,
+                    flagCount:flagCount,
+                    msgCount:msgCount,
+                    spamCount:spamCount
+                })
+
+       
       }
       
       render() {
       const x = this.state.searchStatus === 0 ? this.state.data : this.state.filtered;
       const tabledata = x.length===0?"No Data Found":x.map((msg,index) => {
       return <tr onMouseEnter={(e)=>{this.showIconEnter(index)}}
-                 onMouseLeave={(e)=>{this.showIconLeave(index)}}>
-        <td style={msg.isRead?{width:"20%"}:{width:"20%",fontWeight:"bold"}} >{msg.message}<br></br>{msg.contactNo}</td>
+                 onMouseLeave={(e)=>{this.showIconLeave(index)}} 
+                 
+                 >
+        <td style={msg.isRead?{width:"20%"}:{width:"20%",fontWeight:"bold"}} onClick={(e)=>this.handleChangeIsRead(index)} >{msg.message}<br></br>{msg.contactNo}</td>
         <td style={{width:"10%",fontWeight:"bold"}}><span>{msg.isRead?"":1}</span></td>
         <td style={{width:"10%"}}>{msg.date}<br></br>
-        <span style={{margin:"2%"}} hidden={msg.FlagVisible}> <i className="fa fa-exclamation-triangle"></i></span> 
+        <span style={{margin:"2%"}} hidden={msg.FlagVisible} onClick={(e)=>this.handleFlagSpam(index)}> <i className="fa fa-exclamation-triangle"></i></span> 
         <span style={{margin:"2%"}} hidden={msg.FlagVisible} onClick={(e)=>this.handleChangeFlag(index)}> <i className="fa fa-flag"></i></span> 
         <span style={{margin:"2%"}} hidden={msg.FlagVisible} onClick={(e)=>this.handleChangeDelete(index)}> <i className="fa fa-trash"></i></span>
         </td>
@@ -209,7 +274,7 @@ class MenuFile extends React.Component{
                                 mediaQuery={this.mediaQuery} dockSize={this.dockSize} width={this.width} target={this.target}>
                                 <div className="main-menu">
                                     <p className="main-menu-header"></p>
-                                    <MenuComponent items={this.menuItemsForOtherShops} orientation='Vertical' cssClass='dock-menu'></MenuComponent>
+                                    <MenuComponent items={this.state.menuItemsForOtherShops} orientation='Vertical' cssClass='dock-menu'></MenuComponent>
                                 </div>
                             </SidebarComponent>
                             
@@ -228,7 +293,7 @@ class MenuFile extends React.Component{
                             <Table>
                         <thead>
                             <th style={{width:"10%"}}>Last Month</th>
-                     </thead>
+                         </thead>
                         </Table>
                         <Table responsive striped>
                         <tbody>
