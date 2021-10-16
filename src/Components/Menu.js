@@ -19,6 +19,7 @@ class MenuFile extends React.Component{
             DeleteCount:0,
             msgCount:0,
             menuItemsForOtherShops:[],
+            //json data list to display on screen
             data:[
                 {
                "message": "Lorem Ipsum is probably the most popular dummy text generator out there",
