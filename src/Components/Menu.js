@@ -115,7 +115,7 @@ class MenuFile extends React.Component{
          })
          }
       }
-
+//Function for check msg read or not
       handleChangeIsRead(index){
         let temp = this.state.data
         temp[index].isRead = true
