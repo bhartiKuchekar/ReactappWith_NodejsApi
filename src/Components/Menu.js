@@ -68,9 +68,6 @@ class MenuFile extends React.Component{
              }
             ],
         }
-         
-        
-
         this.enableDock = true;
         this.dockSize = '52px';
         this.width = '220px';
@@ -188,7 +185,7 @@ class MenuFile extends React.Component{
         }
         //Flag for DeleteCount
         var DeleteCount = 0
-               {
+        {
             DeleteCount = 4-this.state.data.length //4 is fix length of Array
         }
         //Count for inbox
@@ -198,7 +195,6 @@ class MenuFile extends React.Component{
                 msgCount = msgCount+1
             }
             }
-     
             var inboxName = "Inbox   "+msgCount;
             var flaggedName = "Flagged   "+flagCount
             var spamName = "Spam   "+spamCount
@@ -215,8 +211,7 @@ class MenuFile extends React.Component{
                 text: flaggedName,
                 iconCss: 'icon-picture icon',
                 url: "/ShopList#/MenuFile"
-    
-            },
+                },
             {
                 text: spamName,
                 iconCss: 'icon-picture icon',
@@ -234,17 +229,13 @@ class MenuFile extends React.Component{
                     msgCount:msgCount,
                     spamCount:spamCount
                 })
-
-       
       }
-      
       render() {
       const x = this.state.searchStatus === 0 ? this.state.data : this.state.filtered;
       const tabledata = x.length===0?"No Data Found":x.map((msg,index) => {
       return <tr onMouseEnter={(e)=>{this.showIconEnter(index)}}
                  onMouseLeave={(e)=>{this.showIconLeave(index)}} 
-                 
-                 >
+                     >
         <td style={msg.isRead?{width:"20%"}:{width:"20%",fontWeight:"bold"}} onClick={(e)=>this.handleChangeIsRead(index)} >{msg.message}<br></br>{msg.contactNo}</td>
         <td style={{width:"10%",fontWeight:"bold"}}><span>{msg.isRead?"":1}</span></td>
         <td style={{width:"10%"}}>{msg.date}<br></br>
