@@ -239,8 +239,8 @@ class MenuFile extends React.Component{
         <td style={msg.isRead?{width:"20%"}:{width:"20%",fontWeight:"bold"}} onClick={(e)=>this.handleChangeIsRead(index)} >{msg.message}<br></br>{msg.contactNo}</td>
         <td style={{width:"10%",fontWeight:"bold"}}><span>{msg.isRead?"":1}</span></td>
         <td style={{width:"10%"}}>{msg.date}<br></br>
-        <span style={{margin:"2%"}} hidden={msg.FlagVisible} onClick={(e)=>this.handleFlagSpam(index)}> <i className="fa fa-exclamation-triangle"></i></span> 
-        <span style={{margin:"2%"}} hidden={msg.FlagVisible} onClick={(e)=>this.handleChangeFlag(index)}> <i className="fa fa-flag"></i></span> 
+        <span style={msg.spamFlag?{margin:"2%",color:"red"}:{margin:"2%"}} hidden={msg.FlagVisible} onClick={(e)=>this.handleFlagSpam(index)}> <i className="fa fa-exclamation-triangle"></i></span> 
+        <span style={msg.isFlagClick?{margin:"2%",color:"red"}:{margin:"2%"}} hidden={msg.FlagVisible} onClick={(e)=>this.handleChangeFlag(index)}> <i className="fa fa-flag"></i></span> 
         <span style={{margin:"2%"}} hidden={msg.FlagVisible} onClick={(e)=>this.handleChangeDelete(index)}> <i className="fa fa-trash"></i></span>
         </td>
         <td style={{width:"20%"}}></td>
