@@ -190,23 +190,23 @@ class MenuFile extends React.Component{
             temp.push( {
                 text: inboxName,
                 iconCss: 'icon-picture icon',
-                url: "/AddShop#/MenuFile"
+                url: "/Inbox#/MenuFile"
             },
           
             {
                 text: flaggedName,
                 iconCss: 'icon-picture icon',
-                url: "/ShopList#/MenuFile"
+                url: "/Flag#/MenuFile"
                 },
             {
                 text: spamName,
                 iconCss: 'icon-picture icon',
-                url: "/AddShop#/MenuFile"
+                url: "/Spam#/MenuFile"
             },
             {
                 text: deleteName,
                 iconCss: 'icon-picture icon',
-                url: "/AddShop#/MenuFile"
+                url: "/Delete#/MenuFile"
             })
                 this.setState({
                     menuItemsForOtherShops:temp,
