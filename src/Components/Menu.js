@@ -1,6 +1,6 @@
-import React, { Component, Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter as Router,Route, Link } from 'react-router-dom'
-import {Button,Card,CardBody,CardFooter,CardHeader,Col,Form,FormGroup,Input,Label,InputGroup,InputGroupAddon,InputGroupText,Table} from 'reactstrap';
+import {Card,CardBody,CardHeader,Input,InputGroup,InputGroupAddon,InputGroupText,Table} from 'reactstrap';
 import 'antd/dist/antd.css';
 import { SidebarComponent } from '@syncfusion/ej2-react-navigations';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
@@ -23,46 +23,34 @@ class MenuFile extends React.Component{
             data:[
                 {
                "message": "Lorem Ipsum is probably the most popular dummy text generator out there",
-               "deleteFlag": false,
-               "markAsReadFlag": true,
                "FlagVisible": true,
                "isRead":false,
                "isFlagClick":false,
                "spamFlag": false,
-               "noofmessage": "1",
                "contactNo": "0987654321",
                "date":"11/10/21"
              },{
                "message": "This dummy text generator can provide you with filler text in ten languages",
-               "deleteFlag": false,
-               "markAsReadFlag": true,
                "FlagVisible": true,
                "isRead":false,
                "isFlagClick":false,
                "spamFlag": false,
-               "noofmessage": "1",
                "contactNo": "0887654637",
                "date":"12/10/21"
              },{
                "message": "Cameron Creative Filler Text",
-               "deleteFlag": false,
-               "markAsReadFlag": true,
                "FlagVisible": true,
                "isRead":false,
                "isFlagClick":false,
                "spamFlag": false,
-               "noofmessage": "1",
                "contactNo": "0765478321",
                "date":"13/10/21"
              },{
                "message": "What purpose does dummy text have",
-               "deleteFlag": false,
-               "markAsReadFlag": true,
                "FlagVisible": true,
                "isRead":false,
                "isFlagClick":false,
                "spamFlag": false,
-               "noofmessage": "1",
                "contactNo": "0967854679",
                "date":"14/10/21"
              }
@@ -90,11 +78,8 @@ class MenuFile extends React.Component{
                 {
                   const x = {
                "message": val.message,
-               "deleteFlag": val.deleteFlag,
-               "markAsReadFlag": val.markAsReadFlag,
                "FlagVisible":val.FlagVisible ,
                "spamFlag": val.spamFlag,
-               "noofmessage": val.noofmessage,
                "contactNo": val.contactNo,
                "date":val.date,
                   }
@@ -113,7 +98,7 @@ class MenuFile extends React.Component{
          })
          }
       }
-//Function for check msg read or not
+        //Function for check msg read or not
       handleChangeIsRead(index){
         let temp = this.state.data
         temp[index].isRead = true
@@ -167,6 +152,7 @@ class MenuFile extends React.Component{
           dataTemp:temp
         })
        }
+
        componentDidMount() {   
         var temp= this.state.data
         //Flag for flagCount
@@ -234,7 +220,7 @@ class MenuFile extends React.Component{
       const x = this.state.searchStatus === 0 ? this.state.data : this.state.filtered;
       const tabledata = x.length===0?"No Data Found":x.map((msg,index) => {
       return <tr onMouseEnter={(e)=>{this.showIconEnter(index)}}
-                 onMouseLeave={(e)=>{this.showIconLeave(index)}} 
+                 onMouseLeave={(e)=>{this.showIconLeave(index)}}
                      >
         <td style={msg.isRead?{width:"20%"}:{width:"20%",fontWeight:"bold"}} onClick={(e)=>this.handleChangeIsRead(index)} >{msg.message}<br></br>{msg.contactNo}</td>
         <td style={{width:"10%",fontWeight:"bold"}}><span>{msg.isRead?"":1}</span></td>
@@ -246,6 +232,7 @@ class MenuFile extends React.Component{
         <td style={{width:"20%"}}></td>
         </tr>
     })
+
         return (
             <Router >
                 <div className="control-section">
