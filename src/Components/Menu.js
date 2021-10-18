@@ -100,7 +100,7 @@ class MenuFile extends React.Component{
       }
         //Function for check msg read or not
       handleChangeIsRead(index){
-        let temp = this.state.data
+        let temp = this.state.searchStatus === 0 ? this.state.data : this.state.filtered
         temp[index].isRead = true
         this.setState({
             data:temp
@@ -109,7 +109,7 @@ class MenuFile extends React.Component{
         }
       //Function for onlcicked on Span Icon
       handleFlagSpam(index){
-        let temp = this.state.data
+        let temp = this.state.searchStatus === 0 ? this.state.data : this.state.filtered
         let value =temp[index].spamFlag===true?false:true
         temp[index].spamFlag = value
         this.setState({
@@ -119,7 +119,7 @@ class MenuFile extends React.Component{
       }
       //Fuction for when Clicked on Flag Icon
       handleChangeFlag(index){
-        let temp = this.state.data
+        let temp = this.state.searchStatus === 0 ? this.state.data : this.state.filtered
         let value = temp[index].isFlagClick===true?false:true
         temp[index].isFlagClick = value
         this.setState({
