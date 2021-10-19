@@ -12,9 +12,9 @@
 - Creacte react project and make Ul
 - import required files and libraries from the react
 - Create Function for the onchange of actions
-- Onces functions created check it while it working according or not.
+- Onces functions created check it while it working accordingly or not.
 
-## List of 3rd party libs usedgly or not
+## List of 3rd party libs used
 
 - font-awesome.min.css
 - @syncfusion/ej2-react-navigations
