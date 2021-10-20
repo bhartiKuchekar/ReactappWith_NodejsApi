@@ -124,6 +124,7 @@ class MenuFile extends React.Component {
       this.state.searchStatus === 0 ? this.state.data : this.state.filtered;
     let value = temp[index].spamFlag === true ? false : true;
     temp[index].spamFlag = value;
+    temp[index].isFlagClick = value === true ? false : true; //changes for either flag or spam
     this.setState({
       data: temp,
     });
@@ -135,6 +136,7 @@ class MenuFile extends React.Component {
       this.state.searchStatus === 0 ? this.state.data : this.state.filtered;
     let value = temp[index].isFlagClick === true ? false : true;
     temp[index].isFlagClick = value;
+    temp[index].spamFlag = value === true ? false : true; //changes for either flag or spam
     this.setState({
       data: temp,
     });
@@ -345,7 +347,7 @@ class MenuFile extends React.Component {
               </div>
               <SidebarComponent
                 id="sidebar-menu"
-                ref={(Sidebar) => (this.sidebarobj = Sidebar)}
+                ref={(Sidebar) => (this.sidebarObj = Sidebar)}
                 enableDock={this.enableDock}
                 mediaQuery={this.mediaQuery}
                 dockSize={this.dockSize}
@@ -400,7 +402,7 @@ class MenuFile extends React.Component {
     );
   }
   openClick() {
-    this.sidebarobj.toggle();
+    this.sidebarObj.toggle();
   }
 }
 export default MenuFile;
