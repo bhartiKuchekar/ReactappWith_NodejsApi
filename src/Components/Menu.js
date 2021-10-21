@@ -80,9 +80,8 @@ class MenuFile extends React.Component {
     var count = 0;
     const lData = [];
     const data = this.state.data;
-    console.log(data);
     if (userInput !== "") {
-      var regex = new RegExp(userInput, "i");
+      var regex = new RegExp(userInput, "i"); // Case Insensitive matching with user Input /<UserInput>/i
       {
         this.state.data.map((val) => {
           if ((val.message != null ? val.message : "").search(regex) !== -1) {
@@ -324,25 +323,6 @@ class MenuFile extends React.Component {
                     className="icon-menu icon list"
                     onClick={this.openClick.bind(this)}
                   ></li>
-                  <img
-                    src={""}
-                    style={{
-                      marginLeft: "1.5%",
-                      marginTop: "0.5%",
-                      backgroundColor: "white",
-                      float: "left",
-                    }}
-                  />
-
-                  <span style={{ textAlign: "center" }}>
-                    <h3 style={{ marginTop: "0.5%" }}>
-                      <MenuComponent
-                        items={this.AccountMenuItem}
-                        style={{ marginTop: "-0.4%" }}
-                        cssClass="dock-menu"
-                      ></MenuComponent>
-                    </h3>
-                  </span>
                 </ul>
               </div>
               <SidebarComponent
