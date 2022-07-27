@@ -27,8 +27,7 @@
 
 ### Link to github
 
-https://github.com/bhartiKuchekar/NewPOC
+https://github.com/bhartiKuchekar/ReactappWith_NodejsApi
 
 ### Link to netlify
 
-https://test-for-react.netlify.app/#/
