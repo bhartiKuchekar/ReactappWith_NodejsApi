@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@trendmicro/react-sidenav": "^0.5.0",
+    "axios": "^0.27.2",
     "font-awesome": "^4.7.0",
     "radium": "^0.26.1",
     "react": "^17.0.2",
@@ -17,6 +18,7 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-toasts": "^3.0.6",
     "reactstrap": "^8.10.0",
     "web-vitals": "^2.1.2"
   },
@@ -43,5 +45,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:3002/"
 }

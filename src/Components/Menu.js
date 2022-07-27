@@ -9,11 +9,15 @@ import {
   InputGroupAddon,
   InputGroupText,
   Table,
+  Button,
 } from "reactstrap";
 import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
 import { MenuComponent } from "@syncfusion/ej2-react-navigations";
 import "./index.css";
 import "../../node_modules/font-awesome/css/font-awesome.min.css";
+import axios from "axios";
+import Add from "./Add";
+import List from "./List";
 
 class MenuFile extends React.Component {
   constructor() {
@@ -22,290 +26,29 @@ class MenuFile extends React.Component {
     this.state = {
       filtered: [],
       searchStatus: 0,
-      flagCount: 0,
-      spamCount: 0,
-      DeleteCount: 0,
-      msgCount: 0,
-      menuItemsForOtherShops: [],
-      //json data list to display on screen
-      data: [
+      data: [],
+      menuItemsForOtherShops: [
         {
-          message:
-            "Lorem Ipsum is probably the most popular dummy text generator out there",
-          FlagVisible: true,
-          isRead: false,
-          isFlagClick: false,
-          spamFlag: false,
-          contactNo: "0987654321",
-          date: "11/10/21",
+          text: "Employee Details",
+          iconCss: "icon-picture icon",
+          url: "/List",
         },
         {
-          message:
-            "This dummy text generator can provide you with filler text in ten languages",
-          FlagVisible: true,
-          isRead: false,
-          isFlagClick: false,
-          spamFlag: false,
-          contactNo: "0887654637",
-          date: "12/10/21",
-        },
-        {
-          message: "Cameron Creative Filler Text",
-          FlagVisible: true,
-          isRead: false,
-          isFlagClick: false,
-          spamFlag: false,
-          contactNo: "0765478321",
-          date: "13/10/21",
-        },
-        {
-          message: "What purpose does dummy text have",
-          FlagVisible: true,
-          isRead: false,
-          isFlagClick: false,
-          spamFlag: false,
-          contactNo: "0967854679",
-          date: "14/10/21",
+          text: "Add Employee",
+          iconCss: "icon-picture icon",
+          url: "/Add",
         },
       ],
+
+      //json data list to display on screen
     };
     this.enableDock = true;
     this.dockSize = "52px";
     this.width = "220px";
     this.target = ".main-content";
   }
-  //Function for handling Search operation
-  handleChange(e) {
-    var userInput = document.getElementsByName("searchInput")[0].value;
-    var count = 0;
-    const lData = [];
-    const data = this.state.data;
-    if (userInput !== "") {
-      var regex = new RegExp(userInput, "i"); // Case Insensitive matching with user Input /<UserInput>/i
-      {
-        this.state.data.map((val) => {
-          if ((val.message != null ? val.message : "").search(regex) !== -1) {
-            const x = {
-              message: val.message,
-              FlagVisible: val.FlagVisible,
-              spamFlag: val.spamFlag,
-              contactNo: val.contactNo,
-              date: val.date,
-            };
-            lData.push(x);
-            count++;
-          }
-        });
-      }
-      this.setState({
-        searchStatus: 1,
-        filtered: lData,
-      });
-    } else {
-      this.setState({
-        searchStatus: 0,
-      });
-    }
-  }
-  //Function for check msg read or not
-  handleChangeIsRead(index) {
-    let temp =
-      this.state.searchStatus === 0 ? this.state.data : this.state.filtered;
-    temp[index].isRead = true;
-    this.setState({
-      data: temp,
-    });
-    this.componentDidMount();
-  }
-  //Function for onlcicked on Span Icon
-  handleFlagSpam(index) {
-    let temp =
-      this.state.searchStatus === 0 ? this.state.data : this.state.filtered;
-    let value = temp[index].spamFlag === true ? false : true;
-    temp[index].spamFlag = value;
-    temp[index].isFlagClick = value === true ? false : true; //changes for either flag or spam
-    this.setState({
-      data: temp,
-    });
-    this.componentDidMount();
-  }
-  //Fuction for when Clicked on Flag Icon
-  handleChangeFlag(index) {
-    let temp =
-      this.state.searchStatus === 0 ? this.state.data : this.state.filtered;
-    let value = temp[index].isFlagClick === true ? false : true;
-    temp[index].isFlagClick = value;
-    temp[index].spamFlag = value === true ? false : true; //changes for either flag or spam
-    this.setState({
-      data: temp,
-    });
-    this.componentDidMount();
-  }
-  //Fuction for when Clicked on Delete
-  handleChangeDelete(index) {
-    let temp = this.state.data;
-    temp.splice(index, 1);
-    this.setState({
-      data: temp,
-    });
-    this.componentDidMount();
-  }
-  //Fuction for when mouseOver
-  showIconEnter(index) {
-    var temp =
-      this.state.searchStatus === 0 ? this.state.data : this.state.filtered;
-    temp[index].FlagVisible = false;
-    this.setState({
-      dataTemp: temp,
-    });
-  }
-  //Fuction for when remove mouseOver
-  showIconLeave(index) {
-    var temp =
-      this.state.searchStatus === 0 ? this.state.data : this.state.filtered;
-    temp[index].FlagVisible = true;
-    this.setState({
-      dataTemp: temp,
-    });
-  }
 
-  componentDidMount() {
-    var temp = this.state.data;
-    //Flag for flagCount
-    var flagCount = 0;
-    for (var i = 0; i < temp.length; i++) {
-      if (temp[i].isFlagClick) {
-        flagCount = flagCount + 1;
-      }
-    }
-    //Flag for SpamCount
-    var spamCount = 0;
-    for (var i = 0; i < temp.length; i++) {
-      if (temp[i].spamFlag) {
-        spamCount = spamCount + 1;
-      }
-    }
-    //Flag for DeleteCount
-    var DeleteCount = 0;
-    {
-      DeleteCount = 4 - this.state.data.length; //4 is fix length of Array
-    }
-    //Count for inbox
-    var msgCount = 0;
-    for (var i = 0; i < temp.length; i++) {
-      if (temp[i].isRead === false) {
-        msgCount = msgCount + 1;
-      }
-    }
-    var inboxName = "Inbox   " + msgCount;
-    var flaggedName = "Flagged   " + flagCount;
-    var spamName = "Spam   " + spamCount;
-    var deleteName = "Deleted   " + DeleteCount;
-
-    var temp = [];
-    temp.push(
-      {
-        text: inboxName,
-        iconCss: "icon-picture icon",
-        url: "/Inbox#/MenuFile",
-      },
-
-      {
-        text: flaggedName,
-        iconCss: "icon-picture icon",
-        url: "/Flag#/MenuFile",
-      },
-      {
-        text: spamName,
-        iconCss: "icon-picture icon",
-        url: "/Spam#/MenuFile",
-      },
-      {
-        text: deleteName,
-        iconCss: "icon-picture icon",
-        url: "/Delete#/MenuFile",
-      }
-    );
-    this.setState({
-      menuItemsForOtherShops: temp,
-      DeleteCount: DeleteCount,
-      flagCount: flagCount,
-      msgCount: msgCount,
-      spamCount: spamCount,
-    });
-  }
   render() {
-    const x =
-      this.state.searchStatus === 0 ? this.state.data : this.state.filtered;
-    const tabledata =
-      x.length === 0
-        ? "No Data Found"
-        : x.map((msg, index) => {
-            return (
-              <tr
-                onMouseEnter={(e) => {
-                  this.showIconEnter(index);
-                }}
-                onMouseLeave={(e) => {
-                  this.showIconLeave(index);
-                }}
-              >
-                <td
-                  style={
-                    msg.isRead
-                      ? { width: "20%" }
-                      : { width: "20%", fontWeight: "bold" }
-                  }
-                  onClick={(e) => this.handleChangeIsRead(index)}
-                >
-                  {msg.message}
-                  <br></br>
-                  {msg.contactNo}
-                </td>
-                <td style={{ width: "10%", fontWeight: "bold" }}>
-                  <span>{msg.isRead ? "" : 1}</span>
-                </td>
-                <td style={{ width: "10%" }}>
-                  {msg.date}
-                  <br></br>
-                  <span
-                    style={
-                      msg.spamFlag
-                        ? { margin: "2%", color: "red" }
-                        : { margin: "2%" }
-                    }
-                    hidden={msg.FlagVisible}
-                    onClick={(e) => this.handleFlagSpam(index)}
-                  >
-                    {" "}
-                    <i className="fa fa-exclamation-triangle"></i>
-                  </span>
-                  <span
-                    style={
-                      msg.isFlagClick
-                        ? { margin: "2%", color: "red" }
-                        : { margin: "2%" }
-                    }
-                    hidden={msg.FlagVisible}
-                    onClick={(e) => this.handleChangeFlag(index)}
-                  >
-                    {" "}
-                    <i className="fa fa-flag"></i>
-                  </span>
-                  <span
-                    style={{ margin: "2%" }}
-                    hidden={msg.FlagVisible}
-                    onClick={(e) => this.handleChangeDelete(index)}
-                  >
-                    {" "}
-                    <i className="fa fa-trash"></i>
-                  </span>
-                </td>
-                <td style={{ width: "20%" }}></td>
-              </tr>
-            );
-          });
-
     return (
       <Router>
         <div className="control-section">
@@ -343,36 +86,10 @@ class MenuFile extends React.Component {
                   ></MenuComponent>
                 </div>
               </SidebarComponent>
-
               <div className="main-content" id="maintext">
                 <div ml-5>
-                  <Card>
-                    <CardHeader>
-                      <InputGroup>
-                        <Input
-                          type="search"
-                          name="searchInput"
-                          onChange={(e) => this.handleChange()}
-                          placeholder="Search By Message"
-                        />
-                        <InputGroupAddon addonType="append">
-                          <InputGroupText>
-                            <i className="fa fa-search"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                      </InputGroup>
-                    </CardHeader>
-                    <CardBody>
-                      <Table>
-                        <thead>
-                          <th style={{ width: "10%" }}>Last Month</th>
-                        </thead>
-                      </Table>
-                      <Table responsive striped>
-                        <tbody>{tabledata}</tbody>
-                      </Table>
-                    </CardBody>
-                  </Card>
+                  <Route path="/Add" exact component={Add} />
+                  <Route path="/List" exact component={List} />
                 </div>
               </div>
             </div>
